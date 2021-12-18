@@ -38,4 +38,12 @@ public class StudentService {
         return config.modelMapper().map(studentRepository.save(student),StudentDto.class);
     }
 
+    public StudentDto updateStudent(StudentCreateRequest createRequest, String id){
+        return null;
+    }
+
+
+    public void deleteStudent(String id) {
+
+    }
 }
