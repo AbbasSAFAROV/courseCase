@@ -1,7 +1,6 @@
 package com.folksdev.course.api;
 
 
-import com.folksdev.course.entity.Student;
 import com.folksdev.course.model.dto.StudentDto;
 import com.folksdev.course.model.request.StudentCreateRequest;
 import com.folksdev.course.service.StudentService;
@@ -36,10 +35,7 @@ public class StudentController {
         return new ResponseEntity<>(studentService.updateStudent(createRequest,id),HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteStudent(@PathVariable String id){
-        return "null";
-    }
+
 
 
 }

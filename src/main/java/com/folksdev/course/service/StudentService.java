@@ -3,7 +3,6 @@ package com.folksdev.course.service;
 
 import com.folksdev.course.configuration.Config;
 import com.folksdev.course.configuration.Converter;
-import com.folksdev.course.entity.Course;
 import com.folksdev.course.entity.Student;
 import com.folksdev.course.model.dto.StudentDto;
 import com.folksdev.course.model.request.StudentCreateRequest;
@@ -16,6 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class StudentService {
 
+    // DI -> Dependency Injection
     private final StudentRepository studentRepository;
     private final Converter converter;
     private final Config config;
