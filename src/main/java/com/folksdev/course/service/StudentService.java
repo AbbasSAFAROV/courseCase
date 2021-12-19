@@ -4,9 +4,11 @@ package com.folksdev.course.service;
 import com.folksdev.course.configuration.Config;
 import com.folksdev.course.configuration.Converter;
 import com.folksdev.course.entity.Student;
+import com.folksdev.course.exception.StudentNotFoundException;
 import com.folksdev.course.model.dto.StudentDto;
 import com.folksdev.course.model.request.StudentCreateRequest;
 import com.folksdev.course.repository.StudentRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +21,13 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final Converter converter;
     private final Config config;
+    private final ModelMapper modelMapper;
 
-    public StudentService(StudentRepository studentRepository, Converter converter, Config config) {
+    public StudentService(StudentRepository studentRepository, Converter converter, Config config, ModelMapper modelMapper) {
         this.studentRepository = studentRepository;
         this.converter = converter;
         this.config = config;
+        this.modelMapper = modelMapper;
     }
 
     public List<StudentDto> getAllStudents(){
@@ -38,8 +42,21 @@ public class StudentService {
         return config.modelMapper().map(studentRepository.save(student),StudentDto.class);
     }
 
-    public StudentDto updateStudent(StudentCreateRequest createRequest, String id){
-        return null;
+    public StudentDto updateStudent(StudentCreateRequest createRequest, Long id){
+
+        Student student = findStudentById(id);
+        student.setName(createRequest.getName());
+        return modelMapper.map(studentRepository.save(student),StudentDto.class);
+    }
+
+    public void deleteStudentById(Long id){
+        Student student = findStudentById(id);
+        studentRepository.delete(student);
+    }
+
+
+    public Student findStudentById(Long id){
+        return studentRepository.findById(id).orElseThrow(()->new StudentNotFoundException("stundet not found with this id :"+id));
     }
 
 

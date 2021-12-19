@@ -2,6 +2,7 @@ package com.folksdev.course.service;
 
 
 import com.folksdev.course.configuration.Config;
+import com.folksdev.course.entity.Course;
 import com.folksdev.course.model.dto.CourseDto;
 import com.folksdev.course.model.request.CourseCreateRequest;
 import com.folksdev.course.repository.CourseRepository;
@@ -29,7 +30,7 @@ public class CourseService {
     }
 
     public CourseDto createCourse(CourseCreateRequest courseCreateRequest){
-        return new CourseDto();
+        return modelMapper.map(courseRepository.save(modelMapper.map(courseCreateRequest, Course.class)),CourseDto.class);
     }
 
 
