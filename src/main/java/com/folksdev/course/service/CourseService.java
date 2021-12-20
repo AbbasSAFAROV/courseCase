@@ -3,6 +3,7 @@ package com.folksdev.course.service;
 
 import com.folksdev.course.configuration.Config;
 import com.folksdev.course.entity.Course;
+import com.folksdev.course.exception.CourseNotFoundException;
 import com.folksdev.course.model.dto.CourseDto;
 import com.folksdev.course.model.request.CourseCreateRequest;
 import com.folksdev.course.repository.CourseRepository;
@@ -31,6 +32,18 @@ public class CourseService {
 
     public CourseDto createCourse(CourseCreateRequest courseCreateRequest){
         return modelMapper.map(courseRepository.save(modelMapper.map(courseCreateRequest, Course.class)),CourseDto.class);
+    }
+
+    public CourseDto updateCourse(CourseCreateRequest courseCreateRequest , Long id){
+
+        Course course = findCourseById(id);
+        course.setName(courseCreateRequest.getName());
+        course.setCourseLimit(courseCreateRequest.getName());
+
+    }
+
+    public Course findCourseById(Long id){
+        return courseRepository.findById(id).orElseThrow(()->new CourseNotFoundException("course not found with this id:"+id));
     }
 
 
