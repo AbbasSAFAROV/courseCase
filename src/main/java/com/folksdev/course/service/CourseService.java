@@ -39,6 +39,7 @@ public class CourseService {
         Course course = findCourseById(id);
         course.setName(courseCreateRequest.getName());
         course.setCourseLimit(courseCreateRequest.getName());
+        return modelMapper.map(course,CourseDto.class);
 
     }
 
