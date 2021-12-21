@@ -28,7 +28,7 @@ public class CourseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CourseDto> getCourseById(@PathVariable Long id){
-        return new ResponseEntity<>(courseService.getCourseById(id),HttpStatus.OK)
+        return new ResponseEntity<>(courseService.getCourseById(id),HttpStatus.OK);
     }
 
     @PostMapping
@@ -36,7 +36,15 @@ public class CourseController {
         return new ResponseEntity<>(courseService.createCourse(createRequest),HttpStatus.CREATED);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<CourseDto> updateCourseById(@RequestBody CourseCreateRequest createRequest , @PathVariable Long id){
+        return new ResponseEntity<>(courseService.updateCourse(createRequest,id),HttpStatus.OK);
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCourseById(@PathVariable Long id){
+        return ResponseEntity.ok().body("course deleted with this id "+id);
+    }
 
 
 
