@@ -53,7 +53,7 @@ public class CourseService {
     }
 
     public Course findCourseById(Long id){
-        return courseRepository.findById(id).orElseThrow(()->new CourseNotFoundException("course not found with this id:"+id));
+        return courseRepository.findById(id).orElseThrow(()->new CourseNotFoundException("course not found with this id:" + id));
     }
 
 
