@@ -4,6 +4,7 @@ package com.folksdev.course.service;
 import com.folksdev.course.entity.CourseBranch;
 import com.folksdev.course.exception.CourseBranchNotFound;
 import com.folksdev.course.model.dto.CourseBranchDto;
+import com.folksdev.course.model.request.CourseBranchCreateRequest;
 import com.folksdev.course.repository.CourseBranchRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,9 @@ public class CourseBranchService {
         return modelMapper.map(findCourseById(id),CourseBranchDto.class);
     }
 
+    public CourseBranchDto createCourseBranch(CourseBranchCreateRequest createRequest){
+        return modelMapper.map(courseBranchRepository.save(modelMapper.map(createRequest,CourseBranch.class)),CourseBranchDto.class);
+    }
 
 
 
