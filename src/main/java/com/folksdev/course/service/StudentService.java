@@ -5,6 +5,7 @@ import com.folksdev.course.configuration.Config;
 import com.folksdev.course.configuration.Converter;
 import com.folksdev.course.entity.Student;
 import com.folksdev.course.exception.StudentNotFoundException;
+import com.folksdev.course.model.dto.CourseDto;
 import com.folksdev.course.model.dto.StudentDto;
 import com.folksdev.course.model.request.StudentCreateRequest;
 import com.folksdev.course.repository.StudentRepository;
@@ -35,6 +36,10 @@ public class StudentService {
         List<Student> studentDtos = studentRepository.findAll();
         return studentDtos.stream().map(x->config.modelMapper().map(x,StudentDto.class)).collect(Collectors.toList());
 
+    }
+
+    public StudentDto getStudentById(Long id){
+        return modelMapper.map(findStudentById(id), StudentDto.class);
     }
 
     public StudentDto createStudent(StudentCreateRequest createRequest){

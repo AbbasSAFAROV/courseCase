@@ -30,6 +30,10 @@ public class CourseService {
         return courseRepository.findAll().stream().map(x->modelMapper.map(x,CourseDto.class)).collect(Collectors.toList());
     }
 
+    public CourseDto getCourseById(Long id){
+        return modelMapper.map(findCourseById(id),CourseDto.class);
+    }
+
     public CourseDto createCourse(CourseCreateRequest courseCreateRequest){
         return modelMapper.map(courseRepository.save(modelMapper.map(courseCreateRequest, Course.class)),CourseDto.class);
     }
@@ -41,6 +45,11 @@ public class CourseService {
         course.setCourseLimit(courseCreateRequest.getName());
         return modelMapper.map(course,CourseDto.class);
 
+    }
+
+    public void deleteUserById(Long id){
+        Course course = findCourseById(id);
+        courseRepository.delete(course);
     }
 
     public Course findCourseById(Long id){
