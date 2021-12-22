@@ -35,15 +35,16 @@ public class CourseBranchService {
         return modelMapper.map(courseBranchRepository.save(modelMapper.map(createRequest,CourseBranch.class)),CourseBranchDto.class);
     }
 
-    public CourseBranchDto updateCourseBranch(CourseBranchDto courseBranchDto, Long id){
+    public CourseBranchDto updateCourseBranch(CourseBranchCreateRequest courseBranchDto, Long id){
 
         CourseBranchDto branchDto = modelMapper.map(findCourseById(id),CourseBranchDto.class);
         return modelMapper.map(courseBranchRepository.save(modelMapper.map(branchDto,CourseBranch.class)),CourseBranchDto.class);
 
     }
 
-    public void deleteCourseBranch(Long id){
+    public String deleteCourseBranch(Long id){
         courseBranchRepository.delete(findCourseById(id));
+        return "course branch deleted with this id :"+id;
     }
 
 
